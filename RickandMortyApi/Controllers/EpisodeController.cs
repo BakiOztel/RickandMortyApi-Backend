@@ -20,16 +20,46 @@ namespace RickandMortyApi.Controllers
         [ApiKeyAuthFilter]
         public async Task<IActionResult> GetEpisodes([FromQuery] string? name, [FromQuery] string? episode)
         {
-            var response = await _episode.GetEpisodes(name, episode);
-            return Ok(response);
+            
+            try
+            {
+                var response = await _episode.GetEpisodes(name, episode);
+
+                if (response == null)
+                {
+                    return NotFound();
+                }
+                return Ok(response);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         [HttpGet("{id}")]
         [ApiKeyAuthFilter]
         public async Task<IActionResult> GetEpisode([FromRoute] int id)
         {
-            var response = await _episode.GetEpisode(id);
-            return Ok(response);
+
+            try
+            {
+                var response = await _episode.GetEpisode(id);
+
+                if (response == null)
+                {
+                    return NotFound();
+                }
+                return Ok(response);
+
+            }
+            catch(Exception ex) {
+                return StatusCode(500, "Internal server error");
+            }
+
+
+
         }
     }
 }

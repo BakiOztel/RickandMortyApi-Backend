@@ -26,7 +26,6 @@ namespace App.Application.Characters
         public async Task<List<Character>> GetCharacters(string name, string status, string species,
             string type, string gender)
         {
-            
             var data = await _context.Character.Include(e => e.Episodes)
             .Where(e => (string.IsNullOrEmpty(name) || e.name.StartsWith(name)) && 
                          (string.IsNullOrEmpty(status) || e.status == status) &&
